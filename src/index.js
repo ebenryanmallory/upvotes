@@ -7,6 +7,7 @@ import {
 } from "react-query"
 import { createClient } from '@supabase/supabase-js'
 import './index.css'
+import { v4 as uuidv4 } from 'uuid';
 
 const supabase = createClient(
   process.env.REACT_APP_SUPABASE_URL,
@@ -59,19 +60,21 @@ function Features() {
             </div>
           ) : (
             data.map((feature, index) => (
-              <div className="border-solid border shadow-sm p-8 my-8">
-                <h4 key={index} className="font-black text-gray-700 hover:text-blue-700 cursor-pointer" onClick={() => setID(index)}>{feature['feature_name']}</h4>
-                <div>
-                  <p key={index + 1}>{feature['feature_description']}</p>
-                  <div className="text-center w-max my-4 px-4 bg-gray-100 border border-gray-400 rounded-2xl cursor-pointer">
-                    <span className="hover:text-blue-700">
-                      <svg className="hover:text-blue-700 fill-current w-full" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/></svg>                      
+              <div key={uuidv4()} className="border-solid border shadow-sm p-8 my-8">
+                <h4 key={uuidv4()} className="font-black text-gray-700 hover:text-blue-700 cursor-pointer" onClick={() => setID(index)}>{feature['feature_name']}</h4>
+                <div key={uuidv4()}>
+                  <p key={uuidv4()}>{feature['feature_description']}</p>
+                  <div key={uuidv4()} className="text-center w-max my-4 px-4 bg-gray-100 border border-gray-400 rounded-2xl cursor-pointer">
+                    <span key={uuidv4()} className="hover:text-blue-700">
+                      <svg key={uuidv4()} className="hover:text-blue-700 fill-current w-full" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/></svg>                      
                       Upvote
                     </span>
                     <hr />
-                    <span key={index + 2} className="rounded" >{feature['votes']}</span>
+                    <span key={uuidv4()} className="rounded" >{feature['votes']}</span>
                   </div>
-                  <div key={index + 3} className="w-max	px-4 bg-pink-300 border border-pink-400 rounded text-pink-700 hover:text-orange-700 cursor-pointer">{feature['tag']}</div>
+                  <div key={uuidv4()} className="w-max	my-2 px-4 bg-pink-300 border border-pink-400 rounded text-pink-700 hover:text-pink-900 cursor-pointer">{feature['status']}</div>
+                  <div key={uuidv4()} className="w-max	my-2 px-4 bg-blue-300 border border-blue-400 rounded text-blue-700 hover:text-blue-900 cursor-pointer">{feature['category']}</div>
+                  <div key={uuidv4()} className="w-max	my-2 px-4 bg-yellow-500 border border-yellow-600 rounded text-yellow-800 hover:text-yellow-900 cursor-pointer">{feature['type']}</div>
                 </div>
                 <span>{isFetching ? "Background Updating..." : " "}</span>
               </div>
