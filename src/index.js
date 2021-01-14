@@ -4,6 +4,7 @@ import {
   useQuery,
   QueryClient,
   QueryClientProvider,
+  useMutation
 } from "react-query"
 import { createClient } from '@supabase/supabase-js'
 import './index.css'
@@ -17,7 +18,6 @@ const supabase = createClient(
 const queryClient = new QueryClient();
 
 function App() {
-
   return (
     <QueryClientProvider client={queryClient}>
         <Features />
@@ -25,17 +25,27 @@ function App() {
   );
 }
 
-function FetchFeatures() {
-  return useQuery("lists", async () => {
+function FetchSupabase() {
+  return useQuery("supabase", async () => {
     let { data } = await supabase
     .from('upvote')
+    .select('*')
+    .order('votes', { nullsFirst: false, foreignTable: undefined, ascending: false })
     return data;
   });
 }
 
 function Features() {
-  const { status, data, error, isFetching } = FetchFeatures(); 
+  const { status, data, error, isFetching } = FetchSupabase(); 
   const [ID, setID] = useState(-1);
+
+  const mutation = useMutation(async ({name, votes}) => {
+    await supabase
+      .from('upvote')
+      .update({ 'votes': votes + 1})
+      .eq('feature_name', name)
+      queryClient.invalidateQueries('supabase')
+  });
 
     return (
       <div className="container px-16 py-16">
@@ -56,7 +66,11 @@ function Features() {
               <br />
               <span>{data[ID]['votes']}</span>
               <br />
-              <span>{data[ID]['tag']}</span>
+              <span>{data[ID]['status']}</span>              
+              <br />
+              <span>{data[ID]['category']}</span>
+              <br />
+              <span>{data[ID]['type']}</span>
             </div>
           ) : (
             data.map((feature, index) => (
@@ -65,16 +79,18 @@ function Features() {
                 <div key={uuidv4()}>
                   <p key={uuidv4()}>{feature['feature_description']}</p>
                   <div key={uuidv4()} className="text-center w-max my-4 px-4 bg-gray-100 border border-gray-400 rounded-2xl cursor-pointer">
-                    <span key={uuidv4()} className="hover:text-blue-700">
+                    <span key={uuidv4()} onClick={() => { mutation.mutate({ name: feature['feature_name'], votes: feature['votes']}) }} className="hover:text-blue-700">
                       <svg key={uuidv4()} className="hover:text-blue-700 fill-current w-full" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/></svg>                      
                       Upvote
                     </span>
                     <hr />
                     <span key={uuidv4()} className="rounded" >{feature['votes']}</span>
                   </div>
-                  <div key={uuidv4()} className="w-max	my-2 px-4 bg-pink-300 border border-pink-400 rounded text-pink-700 hover:text-pink-900 cursor-pointer">{feature['status']}</div>
-                  <div key={uuidv4()} className="w-max	my-2 px-4 bg-blue-300 border border-blue-400 rounded text-blue-700 hover:text-blue-900 cursor-pointer">{feature['category']}</div>
-                  <div key={uuidv4()} className="w-max	my-2 px-4 bg-yellow-500 border border-yellow-600 rounded text-yellow-800 hover:text-yellow-900 cursor-pointer">{feature['type']}</div>
+                  <div key={uuidv4()} className="flex">
+                    <div key={uuidv4()} className="flex-initial ml-0 mx-2 my-4 px-4 bg-pink-300 border border-pink-400 rounded text-pink-700 hover:text-pink-900 cursor-pointer">{feature['status']}</div>
+                    <div key={uuidv4()} className="flex-initial mx-2 my-4 px-4 bg-blue-300 border border-blue-400 rounded text-blue-700 hover:text-blue-900 cursor-pointer">{feature['category']}</div>
+                    <div key={uuidv4()} className="flex-initial mx-2 my-4 px-4 bg-yellow-500 border border-yellow-600 rounded text-yellow-800 hover:text-yellow-900 cursor-pointer">{feature['type']}</div>
+                  </div>
                 </div>
                 <span>{isFetching ? "Background Updating..." : " "}</span>
               </div>
