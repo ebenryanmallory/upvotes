@@ -45,7 +45,7 @@ function Topics() {
       .from('upvote')
       .update({ 'votes': votes + 1})
       .eq('feature_name', name)
-    // React-query docs recommend a mutation setting to invalidate the cache
+    // TODO: React-query docs recommend a mutation setting for cache invalidation
     queryClient.invalidateQueries('supabase')
   });
 
@@ -53,6 +53,9 @@ function Topics() {
       <div className="container px-16 py-16">
         <h1 className="text-center text-2xl text-gray-700 my-8 text-uppercase">Look, we got it wrong.</h1>
         <h4 className="text-center text-gray-700 my-8">Help get us on the right track.</h4>
+        <div className="text-gray-700 my-4 hover:text-blue-700 cursor-pointer">
+          <span className="font-black">+ Add</span> (user generated requests coming soon - please upvote me)
+        </div>
         <div>
           {status === "loading" ? (
             "Loading..."
@@ -60,54 +63,115 @@ function Topics() {
             <span>Error: {error.message}</span>
           ) : ID >= 0 ? (
             <div className="border-solid border shadow-sm p-8 my-8">
-              <span className="text-gray-700 hover:text-blue-700 cursor-pointer" onClick={() => setID({ tag: '*', string: '' })}>Back</span>
+              <span 
+                className="text-gray-700 hover:text-blue-700 cursor-pointer" 
+                onClick={() => setID({ tag: '*', string: '' })}>
+                Back
+              </span>
               <br />
-              <span>{data[ID]['feature_name']}</span>
+              <span className="font-black text-gray-700">{data[ID]['feature_name']}</span>
               <br />
               <span>{data[ID]['feature_description']}</span>
               <br />
-              <span>{data[ID]['votes']}</span>
+              <div className="text-center w-max my-4 px-4 bg-gray-100 border border-gray-400 rounded-2xl cursor-pointer">
+                <span className="hover:text-blue-700" onClick={() => { mutation.mutate({ name: data[ID]['feature_name'], votes: data[ID]['votes']}) }}>
+                  <svg key={uuidv4()} className="hover:text-blue-700 fill-current w-full" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/></svg>
+                  Upvote
+                </span>
+                <hr />
+                <span key={uuidv4()} className="rounded">{data[ID]['votes']}</span>
+              </div>
               <br />
-              <span>{data[ID]['status']}</span>              
-              <br />
-              <span>{data[ID]['category']}</span>
-              <br />
-              <span>{data[ID]['type']}</span>
+              <div key={uuidv4()} className="flex">
+                <span 
+                  onClick={() => { setID({ tag: '*', string: '' }); setFilter({ tag: 'status', string: data[ID]['status'] }) }} 
+                  className="flex-initial ml-0 mx-2 my-4 px-4 bg-pink-300 border border-pink-400 rounded text-pink-700 hover:text-pink-900 cursor-pointer">
+                  {data[ID]['status']}
+                </span>              
+                <span 
+                  onClick={() => { setID({ tag: '*', string: '' }); setFilter({ tag: 'category', string: data[ID]['category'] }) }} 
+                  className="flex-initial mx-2 my-4 px-4 bg-blue-300 border border-blue-400 rounded text-blue-700 hover:text-blue-900 cursor-pointer">
+                  {data[ID]['category']}
+                </span>
+                <span 
+                  onClick={() => { setID({ tag: '*', string: '' }); setFilter({ tag: 'type', string: data[ID]['type'] }) }} 
+                  className="flex-initial mx-2 my-4 px-4 bg-yellow-500 border border-yellow-600 rounded text-yellow-800 hover:text-yellow-900 cursor-pointer">
+                  {data[ID]['type']}
+                  </span>
+              </div>
             </div>
           ) : filter.tag === 'status' || filter.tag === 'category' || filter.tag === 'type' ? (
-            data.map((feature) => (
+            data.map((feature, index) => (
                 <div key={uuidv4()}>
                   {filter.tag === 'status' && filter.string === feature['status'] && 
                     <div key={uuidv4()} className="border-solid border shadow-sm p-8 my-8">
-                      <span key={uuidv4()} className="text-gray-700 hover:text-blue-700 cursor-pointer" onClick={() => setFilter({ tag: '*', string: '' })}>Back</span>
+                      <span 
+                        key={uuidv4()} 
+                        className="text-gray-700 hover:text-blue-700 cursor-pointer" 
+                        onClick={() => setFilter({ tag: '*', string: '' })}>
+                        Back
+                      </span>
                       <br key={uuidv4()} />
-                      <span key={uuidv4()}>{feature['feature_name']}</span>
+                      <span 
+                        key={uuidv4()} 
+                        className="font-black text-gray-700 hover:text-blue-700 cursor-pointer" 
+                        onClick={() => { setFilter({ tag: '*', string: '' }); setID(index) }}>
+                        {feature['feature_name']}
+                      </span>
                       <br key={uuidv4()} />
-                      <span key={uuidv4()}>{filter.tag}</span>
-                      <br key={uuidv4()} />
-                      <span key={uuidv4()}>{filter.string}</span>
+                      <div className="flex">
+                        <span 
+                          key={uuidv4()} 
+                          className="flex-initial ml-0 mx-2 my-4 px-4 bg-pink-300 border border-pink-400 rounded text-pink-700">
+                          {filter.string}
+                        </span>
+                      </div>
                     </div>
                   }
                   {filter.tag === 'category' && filter.string === feature['category'] && 
                     <div key={uuidv4()} className="border-solid border shadow-sm p-8 my-8">
-                      <span key={uuidv4()} className="text-gray-700 hover:text-blue-700 cursor-pointer" onClick={() => setFilter({ tag: '*', string: '' })}>Back</span>
+                      <span 
+                        key={uuidv4()} 
+                        className="text-gray-700 hover:text-blue-700 cursor-pointer" 
+                        onClick={() => setFilter({ tag: '*', string: '' })}>
+                        Back
+                      </span>
                       <br key={uuidv4()} />
-                      <span key={uuidv4()}>{feature['feature_name']}</span>
+                      <span 
+                        key={uuidv4()} 
+                        className="font-black text-gray-700 hover:text-blue-700 cursor-pointer" 
+                        onClick={() => { setFilter({ tag: '*', string: '' }); setID(index) }}>
+                        {feature['feature_name']}
+                      </span>
                       <br key={uuidv4()} />
-                      <span key={uuidv4()}>{filter.tag}</span>
-                      <br key={uuidv4()} />
-                      <span key={uuidv4()}>{filter.string}</span>
+                      <div className="flex">
+                        <span 
+                          key={uuidv4()} 
+                          className="flex-initial mx-2 my-4 px-4 bg-blue-300 border border-blue-400 rounded text-blue-700">
+                          {filter.string}
+                        </span>
+                      </div>
                     </div>
                   }
                   {filter.tag === 'type' && filter.string === feature['type'] && 
                     <div key={uuidv4()} className="border-solid border shadow-sm p-8 my-8">
-                      <span key={uuidv4()} className="text-gray-700 hover:text-blue-700 cursor-pointer" onClick={() => setFilter({ tag: '*', string: '' })}>Back</span>
+                      <span 
+                        key={uuidv4()} 
+                        className="text-gray-700 hover:text-blue-700 cursor-pointer hover:text-blue-700 cursor-pointer" 
+                        onClick={() => setFilter({ tag: '*', string: '' })}>
+                        Back
+                      </span>
                       <br key={uuidv4()} />
-                      <span key={uuidv4()}>{feature['feature_name']}</span>
+                      <span 
+                        key={uuidv4()} 
+                        className="font-black text-gray-700 hover:text-blue-700 cursor-pointer" 
+                        onClick={() => { setFilter({ tag: '*', string: '' }); setID(index) }}>
+                        {feature['feature_name']}
+                      </span>
                       <br key={uuidv4()} />
-                      <span key={uuidv4()}>{filter.tag}</span>
-                      <br key={uuidv4()} />
-                      <span key={uuidv4()}>{filter.string}</span>
+                      <div className="flex">
+                        <span key={uuidv4()} className="flex-initial mx-2 my-4 px-4 bg-yellow-500 border border-yellow-600 rounded text-yellow-800">{filter.string}</span>
+                      </div>
                     </div>
                   }
                 </div>
@@ -125,7 +189,7 @@ function Topics() {
                       Upvote
                     </span>
                     <hr />
-                    <span key={uuidv4()} className="rounded" >{feature['votes']}</span>
+                    <span key={uuidv4()} className="rounded">{feature['votes']}</span>
                   </div>
                   <div key={uuidv4()} className="flex">
                     <div key={uuidv4()} onClick={() => setFilter({ tag: 'status', string: feature['status'] })} className="flex-initial ml-0 mx-2 my-4 px-4 bg-pink-300 border border-pink-400 rounded text-pink-700 hover:text-pink-900 cursor-pointer">{feature['status']}</div>
