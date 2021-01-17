@@ -6,9 +6,11 @@ The inspiration for creating an upvoting app was to try out Supabase by building
 
 To install the upvoting app locally:
 
-```git clone https://github.com/ebenryanmallory/most-upvotes.git
+```
+git clone https://github.com/ebenryanmallory/most-upvotes.git
 cd most-upvotes
-npm install or yarn```
+npm install or yarn
+```
 
 Create a .env file and place an entry in for your URL and one for your key:
 
@@ -20,7 +22,9 @@ More information on this can be found in the [Supabase docs:](https://supabase.i
 
 More on the Supabase JS client library can be found [here:](https://supabase.io/docs/client/installing)
 
-```npm run start```
+```
+npm run start
+```
 
 Run locally - the React part uses a standard Create React App setup with a CRACO (configuration override) for Tailwind CSS. This was done to get up and running quickly and was not optimized.
 
