@@ -18,14 +18,15 @@ Create a .env file and place an entry in for your URL and one for your key:
 REACT_APP_SUPABASE_URL=
 REACT_APP_SUPABASE_KEY=
 ```
-More information on this can be found in the [Supabase docs:](https://supabase.io/docs/client/initializing)
 
-More on the Supabase JS client library can be found [here:](https://supabase.io/docs/client/installing)
+More information on this can be found in the [Supabase docs](https://supabase.io/docs/client/initializing)
+
+More on the [Supabase JS client library](https://supabase.io/docs/client/installing)
 
 ```
 npm run start
 ```
 
-Run locally - the React part uses a standard Create React App setup with a CRACO (configuration override) for Tailwind CSS. This was done to get up and running quickly and was not optimized.
+Run locally - the React part uses a standard Create React App setup plus React Query for driving the app data from Supabase and refreshing, and uses CRACO (configuration override) for Tailwind CSS. This was done to get up and running quickly and was not yet optimizated for performance or flexibility.
 
 [MIT](LICENSE)
