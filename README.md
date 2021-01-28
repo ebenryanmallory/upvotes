@@ -23,7 +23,14 @@ More information on this can be found in the [Supabase docs](https://supabase.io
 
 More on the [Supabase JS client library](https://supabase.io/docs/client/installing)
 
-Next, from within the Supabase app, you will need to create a new table and name it "upvote" (case sensitive). Supabase has helpful templates for creating tables. Next, create a column with the following names: "feature_name", "feature_description", "status", "category", "type", and finally "votes". Choose text as the type from the dropdown, and int4 for votes. All names are arbitrary and you can use whatever you like as long as you update the code in your app.
+Next, from within the Supabase app, you will need to create a new table and name it "upvote" (case sensitive). Supabase has helpful templates for creating tables. Next, create a column with the following names: 
+"feature_name", 
+"feature_description", 
+"status", 
+"category", 
+"type",
+"votes". 
+All names are arbitrary and you can use whatever you like as long as you update the code in your app.
 
 ![Supbase screenshot](supabase-screenshot.png)
 

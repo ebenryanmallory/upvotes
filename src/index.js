@@ -45,7 +45,7 @@ function Topics() {
       .from('upvote')
       .update({ 'votes': votes + 1})
       .eq('feature_name', name)
-    // TODO: React-query docs recommend a mutation setting for cache invalidation
+    // TODO: React-query docs recommend a useMutation setting for handling cache invalidation
     queryClient.invalidateQueries('supabase')
   });
 
@@ -71,7 +71,7 @@ function Topics() {
               <br />
               <span className="font-black text-gray-700">{data[ID]['feature_name']}</span>
               <br />
-              <span>{data[ID]['feature_description']}</span>
+              <div dangerouslySetInnerHTML={ {__html: data[ID]['feature_description']} }/>
               <br />
               <div className="text-center w-max my-4 px-4 bg-gray-100 border border-gray-400 rounded-2xl cursor-pointer">
                 <span className="hover:text-blue-700" onClick={() => { mutation.mutate({ name: data[ID]['feature_name'], votes: data[ID]['votes']}) }}>
@@ -182,7 +182,7 @@ function Topics() {
               <div key={uuidv4()} className="border-solid border shadow-sm p-8 my-8">
                 <h4 key={uuidv4()} className="font-black text-gray-700 hover:text-blue-700 cursor-pointer" onClick={() => setID(index)}>{feature['feature_name']}</h4>
                 <div key={uuidv4()}>
-                  <p key={uuidv4()}>{feature['feature_description']}</p>
+                  <div key={uuidv4()} dangerouslySetInnerHTML={ {__html: feature['feature_description']} } />
                   <div key={uuidv4()} className="text-center w-max my-4 px-4 bg-gray-100 border border-gray-400 rounded-2xl cursor-pointer">
                     <span key={uuidv4()} onClick={() => { mutation.mutate({ name: feature['feature_name'], votes: feature['votes']}) }} className="hover:text-blue-700">
                       <svg key={uuidv4()} className="hover:text-blue-700 fill-current w-full" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"/></svg>                      
