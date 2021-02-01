@@ -50,7 +50,7 @@ function Topics() {
   });
 
     return (
-      <div className="container px-16 py-16">
+      <div className="container px-16 py-16 m-auto">
         <h1 className="text-center text-2xl text-gray-700 my-8 text-uppercase">Look, we got it wrong.</h1>
         <h4 className="text-center text-gray-700 my-8">Help get us on the right track.</h4>
         <div className="text-gray-700 my-4 hover:text-blue-700 cursor-pointer">
