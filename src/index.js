@@ -9,6 +9,7 @@ import {
 import { createClient } from '@supabase/supabase-js'
 import './index.css'
 import { v4 as uuidv4 } from 'uuid';
+import { Modal } from './Modal';
 
 const supabase = createClient(
   process.env.REACT_APP_SUPABASE_URL,
@@ -53,9 +54,6 @@ function Topics() {
       <div className="container px-16 py-16 m-auto">
         <h1 className="text-center text-2xl text-gray-700 my-8 text-uppercase">Look, we got it wrong.</h1>
         <h4 className="text-center text-gray-700 my-8">Help get us on the right track.</h4>
-        <div className="text-gray-700 my-4 hover:text-blue-700 cursor-pointer">
-          <span className="font-black">+ Add</span> (🔥 user generated features are planned - please upvote me 🔥)
-        </div>
         <div>
           {status === "loading" ? (
             "Loading..."
@@ -201,6 +199,10 @@ function Topics() {
               </div>
             ))
           )}
+        </div>
+        <p id="modal-trigger" className="fixed bottom-2.5 right-2.5" onClick={() => document.querySelector('.modal-container').classList.toggle('hidden')}>Login / Signup</p>
+        <div className="hidden modal-container">
+          <Modal className="hidden" />
         </div>
       </div>
     );

@@ -32,6 +32,12 @@ Next, from within the Supabase app, you will need to create a new table and name
 "votes". 
 All names are arbitrary and you can use whatever you like as long as you update the code in your app.
 
+Update: As this is a work in progress, many breaking changes may occur.
+I have added an auth modal which allows user submitted requests, so you will need to add another table in your Supabase app named "profiles" with the following columns:
+"name"
+"email"
+Stay tuned for updates.
+
 ![Supbase screenshot](supabase-screenshot.png)
 
 ```
