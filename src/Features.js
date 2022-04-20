@@ -109,6 +109,11 @@ export function Features({ FetchAirtable, queryClient }) {
                 ))
             )
         }
+        <p className="text-right">View on <a 
+          href="https://airtable.com/shrWDAeJIw7O4IjwP/tblRuJIglQwPRJXoX"
+          target="_blank" rel="noreferrer">
+          Airtable</a>
+        </p>
         </div>
       );
   }
