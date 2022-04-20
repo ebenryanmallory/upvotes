@@ -1,5 +1,5 @@
 {
-  "name": "most-upvotes",
+  "name": "upvotes",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -7,25 +7,18 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^6.0.0",
-    "@supabase/supabase-js": "latest",
-    "@tailwindcss/postcss7-compat": "^2.0.2",
-    "autoprefixer": "^9",
-    "postcss": "^7",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-query": "^3.5.5",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "4.0.0",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
-    "uuid": "^8.3.2"
+    "@craco/craco": "^6.4.3",
+    "@shoelace-style/shoelace": "^2.0.0-beta.73",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-query": "^3.35.0",
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject",
-    "deploy": "react-scripts build && cd build && vercel --prod"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,5 +34,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.0.24",
+    "autoprefixer": "^10.4.4",
+    "postcss": "^8.4.12",
+    "copy-webpack-plugin": "^10.2.4",
+    "dotenv": "^16.0.0",
+    "mini-css-extract-plugin": "^2.6.0"
   }
 }
