@@ -1,5 +1,6 @@
 import { React } from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
+
 import './index.css';
 import {
   useQuery,
@@ -13,8 +14,6 @@ import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.j
 
 setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.73/dist/');
 // setBasePath('build/shoelace/assets');
-
-require('dotenv').config();
 
 const queryClient = new QueryClient();
 
@@ -43,4 +42,6 @@ function App() {
   );
 }
 
-render(<App />, document.querySelector("#upvotes"));
+const container = document.querySelector("#upvotes");
+const root = createRoot(container);
+root.render(<App tab="home" />);

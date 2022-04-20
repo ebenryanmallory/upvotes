@@ -8,7 +8,7 @@ To install the upvoting app locally:
 
 ```
 git clone https://github.com/ebenryanmallory/most-upvotes.git
-cd most-upvotes
+cd upvotes
 npm install or yarn
 ```
 
@@ -21,6 +21,6 @@ More information on Airtable can be read in their documentation linked from with
 npm run start
 ```
 
-Run locally - the React part uses a standard Create React App setup plus React Query for driving the app data from Airtable and refreshing, and uses CRACO (configuration override) for Tailwind CSS to get up and running quickly.
+Run locally - the React part uses a standard Create React App setup plus React Query for refreshing the app data from Airtable, and uses Tailwind CSS and Shoelace to get up and running quickly.
 
 [MIT](LICENSE)
