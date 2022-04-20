@@ -7,7 +7,7 @@ The inspiration for creating an upvoting app was to create a simple upvoting app
 To install the upvoting app locally:
 
 ```
-git clone https://github.com/ebenryanmallory/most-upvotes.git
+git clone https://github.com/ebenryanmallory/upvotes.git
 cd upvotes
 npm install or yarn
 ```
