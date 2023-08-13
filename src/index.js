@@ -42,6 +42,6 @@ function App() {
   );
 }
 
-const container = document.querySelector("#upvotes");
+const container = document.querySelector("#custom-app");
 const root = createRoot(container);
 root.render(<App tab="home" />);
